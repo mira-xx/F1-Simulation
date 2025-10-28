@@ -1,0 +1,17 @@
+setup.py
+src/strategy_sim/__init__.py
+src/strategy_sim/calibrate_cli.py
+src/strategy_sim/calibration.py
+src/strategy_sim/cli.py
+src/strategy_sim/fast_cli.py
+src/strategy_sim/fast_mc.py
+src/strategy_sim/mc.py
+src/strategy_sim/models.py
+src/strategy_sim/search.py
+src/strategy_sim/simulator.py
+src/strategy_sim.egg-info/PKG-INFO
+src/strategy_sim.egg-info/SOURCES.txt
+src/strategy_sim.egg-info/dependency_links.txt
+src/strategy_sim.egg-info/requires.txt
+src/strategy_sim.egg-info/top_level.txt
+tests/test_strategy_core.py

@@ -1,0 +1,178 @@
+{
+  "drivers": {
+    "ALB": {
+      "base_pace": 154.1465490495686,
+      "fuel_penalty": -0.9424917687089437,
+      "compound_deg": {
+        "HARD": -1.0161138407810406
+      },
+      "compound_offset": {
+        "HARD": 0.0
+      }
+    },
+    "ALO": {
+      "base_pace": 82.45925287496405,
+      "fuel_penalty": 0.004218707481479299,
+      "compound_deg": {
+        "MEDIUM": -0.05839681763270472
+      },
+      "compound_offset": {
+        "MEDIUM": 0.0
+      }
+    },
+    "BOT": {
+      "base_pace": -106.67475216674177,
+      "fuel_penalty": 3.009911271347506,
+      "compound_deg": {
+        "HARD": 3.051764415141938,
+        "MEDIUM": -0.5184475493888145
+      },
+      "compound_offset": {
+        "HARD": 0.0,
+        "MEDIUM": -36.62290189156674
+      }
+    },
+    "GAS": {
+      "base_pace": 81.48970444577839,
+      "fuel_penalty": 0.012954693876123358,
+      "compound_deg": {
+        "MEDIUM": -0.04777557639416763
+      },
+      "compound_offset": {
+        "MEDIUM": 0.0
+      }
+    },
+    "HAM": {
+      "base_pace": 57.19966122903447,
+      "fuel_penalty": 0.7218542525322078,
+      "compound_deg": {
+        "HARD": 0.6982798935578446,
+        "MEDIUM": -0.08381556720887962
+      },
+      "compound_offset": {
+        "HARD": 0.0,
+        "MEDIUM": -29.715421156176003
+      }
+    },
+    "LEC": {
+      "base_pace": 65.76291688379312,
+      "fuel_penalty": 0.199563415153154,
+      "compound_deg": {
+        "HARD": 0.13429417289059453
+      },
+      "compound_offset": {
+        "HARD": 0.0
+      }
+    },
+    "NOR": {
+      "base_pace": 98.1818007258413,
+      "fuel_penalty": -0.2239695624349094,
+      "compound_deg": {
+        "HARD": -0.2966476840998009
+      },
+      "compound_offset": {
+        "HARD": 0.0
+      }
+    },
+    "PIA": {
+      "base_pace": 79.97653831388918,
+      "fuel_penalty": 0.012652806828719054,
+      "compound_deg": {
+        "HARD": -0.05214685165585409
+      },
+      "compound_offset": {
+        "HARD": 0.0
+      }
+    },
+    "RIC": {
+      "base_pace": 85.87461730361301,
+      "fuel_penalty": -0.03952388535036144,
+      "compound_deg": {
+        "HARD": -0.10598354564760903
+      },
+      "compound_offset": {
+        "HARD": 0.0
+      }
+    },
+    "RUS": {
+      "base_pace": 76.064544206654,
+      "fuel_penalty": 0.07666649659865649,
+      "compound_deg": {
+        "MEDIUM": -0.013224404302235919
+      },
+      "compound_offset": {
+        "MEDIUM": 0.0
+      }
+    },
+    "SAI": {
+      "base_pace": 89.84807978667493,
+      "fuel_penalty": -0.11531483458003589,
+      "compound_deg": {
+        "HARD": -0.18529656350214774
+      },
+      "compound_offset": {
+        "HARD": 0.0
+      }
+    },
+    "SAR": {
+      "base_pace": 155.4393979830334,
+      "fuel_penalty": -0.958352873562555,
+      "compound_deg": {
+        "HARD": -1.0047995228793958,
+        "MEDIUM": 0.0852392189762683
+      },
+      "compound_offset": {
+        "HARD": 0.0,
+        "MEDIUM": -59.47518846499824
+      }
+    },
+    "STR": {
+      "base_pace": 103.89625000000169,
+      "fuel_penalty": -0.7191700000000486,
+      "compound_deg": {
+        "HARD": -0.9168700000000912,
+        "MEDIUM": 0.10247914979762261,
+        "SOFT": 0.20048076923078506
+      },
+      "compound_offset": {
+        "HARD": 0.0,
+        "MEDIUM": 33.695584102567096,
+        "SOFT": -5.252320000000529
+      }
+    },
+    "TSU": {
+      "base_pace": 146.64445738566036,
+      "fuel_penalty": -0.8407820408177837,
+      "compound_deg": {
+        "HARD": -0.9244955543313336
+      },
+      "compound_offset": {
+        "HARD": 0.0
+      }
+    },
+    "VER": {
+      "base_pace": 58.40149133133534,
+      "fuel_penalty": 0.6874155467465853,
+      "compound_deg": {
+        "HARD": 0.6952755467465861,
+        "MEDIUM": -0.10292387755102417
+      },
+      "compound_offset": {
+        "HARD": 0.0,
+        "MEDIUM": -28.601070435096112
+      }
+    },
+    "ZHO": {
+      "base_pace": 93.03184733320623,
+      "fuel_penalty": -0.13770240120974228,
+      "compound_deg": {
+        "HARD": -0.18188530225650934,
+        "SOFT": -0.6897170989531602
+      },
+      "compound_offset": {
+        "HARD": 0.0,
+        "SOFT": -12.963730524738178
+      }
+    }
+  }
+}

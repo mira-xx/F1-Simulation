@@ -1,0 +1,26 @@
+{
+  "drivers": {
+    "VER": {
+      "base_pace": 58.40149133133534,
+      "fuel_penalty": 0.6874155467465853,
+      "compound_deg": {
+        "HARD": 0.6952755467465861,
+        "MEDIUM": -0.10292387755102417
+      },
+      "compound_offset": {
+        "HARD": 0.0,
+        "MEDIUM": -28.601070435096112
+      }
+    },
+    "LEC": {
+      "base_pace": 65.76291688379312,
+      "fuel_penalty": 0.199563415153154,
+      "compound_deg": {
+        "HARD": 0.13429417289059453
+      },
+      "compound_offset": {
+        "HARD": 0.0
+      }
+    }
+  }
+}

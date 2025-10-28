@@ -1,0 +1,104 @@
+import numpy as np
+from typing import Dict, Tuple
+from .models import Strategy, DriverParams, TyreCompound, Stochastic
+from .simulator import Lap, RaceResult, validate_strategy, simulate_single_driver
+
+def simulate_with_randomness(
+    race_laps: int,
+    strategy: Strategy,
+    driver: DriverParams,
+    compounds: Dict[str, TyreCompound],
+    rng: np.random.Generator,
+    stoch: Stochastic,
+) -> RaceResult:
+    """
+    Same structure as the deterministic simulator, but:
+      - On each lap, sample SC/VSC (mutually exclusive with SC precedence) and add the
+        corresponding delta to the lap time.
+      - At the end of each stint (i.e., when pitting), draw a pit loss from N(mean, std)
+        and multiply it if the entry lap (the last lap of the stint) was SC/VSC.
+      - Return a RaceResult containing the per-lap breakdown and total time including pit losses.
+    """
+    validate_strategy(strategy, race_laps)
+
+    # local helpers
+    def base_time(comp: TyreCompound, tyre_age: int, fuel_load: int) -> float:
+        return (
+            driver.base_pace
+            + comp.base_offset
+            + comp.deg_rate * tyre_age
+            + driver.fuel_penalty * fuel_load
+        )
+
+    fuel = race_laps
+    laps: list[Lap] = []
+    pit_laps: list[int] = []
+    pit_total = 0.0
+    li = 0  # global lap index
+
+    for si, stint in enumerate(strategy.stints):
+        comp = compounds[stint.compound]
+
+        # We will remember the neutralization state of each lap in the stint
+        # so we can apply the pit multiplier on the entry lap (last lap of the stint).
+        neutral_flags: list[str] = []  # 'none' | 'sc' | 'vsc'
+
+        for a in range(stint.laps):
+            # Sample neutralization for this lap with SC precedence
+            r = rng.random()
+            if r < stoch.p_sc:
+                neutral = 'sc'
+                neutral_delta = stoch.sc_lap_delta
+            elif r < stoch.p_sc + stoch.p_vsc:
+                neutral = 'vsc'
+                neutral_delta = stoch.vsc_lap_delta
+            else:
+                neutral = 'none'
+                neutral_delta = 0.0
+
+            t = base_time(comp, a, fuel) + neutral_delta
+
+            laps.append(Lap(li, a, fuel, t))
+            neutral_flags.append(neutral)
+
+            li += 1
+            fuel -= 1
+
+        # Pit at the end of the stint, except after the final stint
+        if si < len(strategy.stints) - 1:
+            entry_lap_idx_global = li - 1  # last completed lap
+            entry_neutral = neutral_flags[-1] if neutral_flags else 'none'
+
+            # Sample pit loss and apply multiplier based on entry lap condition
+            raw_pit = rng.normal(loc=stoch.pit_mean, scale=stoch.pit_std)
+            mult = 1.0
+            if entry_neutral == 'sc':
+                mult = stoch.sc_pit_mult
+            elif entry_neutral == 'vsc':
+                mult = stoch.vsc_pit_mult
+
+            pit_total += max(0.0, raw_pit * mult)  # guard against negative draws
+            pit_laps.append(entry_lap_idx_global)
+
+    total_time = sum(l.lap_time for l in laps) + pit_total
+    return RaceResult(laps=laps, total_time=total_time, pit_laps=pit_laps)
+
+
+# Run a Monte Carlo simulation for two drivers with two strategies A vs B over n_runs,
+def monte_carlo_pair(race_laps, sa, sb, driver_a, driver_b, compounds, stoch_a, stoch_b, n_runs=200, seed=1):
+    rng = np.random.default_rng(seed)
+    times_a, times_b, wins_a = [], [], 0
+    for _ in range(n_runs):
+        ta = simulate_with_randomness(race_laps, sa, driver_a, compounds, rng, stoch_a)
+        tb = simulate_with_randomness(race_laps, sb, driver_b, compounds, rng, stoch_b)
+        times_a.append(ta.total_time); times_b.append(tb.total_time)
+        wins_a += (ta.total_time < tb.total_time)
+    return {
+        "mean_a": float(np.mean(times_a)),
+        "p5_a": float(np.percentile(times_a, 5)),
+        "p95_a": float(np.percentile(times_a, 95)),
+        "mean_b": float(np.mean(times_b)),
+        "p5_b": float(np.percentile(times_b, 5)),
+        "p95_b": float(np.percentile(times_b, 95)),
+        "p_win_a": wins_a / n_runs,
+    }
